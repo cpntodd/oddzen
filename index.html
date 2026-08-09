@@ -241,6 +241,55 @@
             color: var(--accent);
         }
 
+        /* ── Updates (blog-style log) ────────── */
+        .update-log {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin: 20px 0;
+        }
+        .update-entry {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--accent);
+            border-radius: var(--radius);
+            padding: 16px 20px;
+        }
+        .update-entry:hover {
+            border-left-color: var(--accent-light);
+        }
+        .update-meta {
+            font-family: var(--font-display);
+            font-size: 0.85rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+        .update-entry h3 {
+            font-family: var(--font-display);
+            color: var(--text-heading);
+            font-size: 1.1rem;
+            margin-bottom: 6px;
+            font-weight: 700;
+        }
+        .update-entry ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .update-entry ul li {
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            padding: 2px 0;
+        }
+        .update-entry ul li::before {
+            content: '+ ';
+            color: var(--accent);
+            font-weight: 700;
+        }
+
         section a {
             color: var(--accent-light);
             text-decoration: underline;
@@ -336,6 +385,7 @@
     <a href="#install">Install</a>
     <a href="#features">Features</a>
     <a href="#tuning">Tuning</a>
+    <a href="#updates">Updates</a>
     <a href="#build">Build</a>
     <a href="#links">Links</a>
 </nav>
@@ -443,6 +493,55 @@ sudo reboot
         </table>
 
         <p class="subtitle">These are the Zen-kernel tunables that differ from Debian's stock config. The Zen patchset also adjusts watermark boost factor, hugepage reclaim, and CPUFreq governor thresholds — all in the direction of lower scheduling latency under mixed desktop workloads.</p>
+    </div>
+</section>
+
+<!-- ════════════════ UPDATES ════════════════ -->
+<section id="updates">
+    <div class="container">
+        <h2>Updates</h2>
+
+        <div class="update-log">
+            <div class="update-entry">
+                <div class="update-meta">2026-08-09 &middot; 7.1.5-zen1-4</div>
+                <h3>Performance pass: Kyber, BFQ, BBR3, ondemand</h3>
+                <ul>
+                    <li>Kyber + BFQ I/O schedulers for low-latency disk I/O</li>
+                    <li>BBRv3 TCP congestion control (switchable; CUBIC stays default)</li>
+                    <li>Ondemand cpufreq governor compiled in</li>
+                    <li>New tuning/ component: systemd service applies Liquorix-style settings at boot (watermark_boost_factor=0, ondemand thresholds, Kyber on NVMe)</li>
+                </ul>
+            </div>
+
+            <div class="update-entry">
+                <div class="update-meta">2026-08-09 &middot; 7.1.5-zen1-3</div>
+                <h3>OOM resilience + project rename to oddzen</h3>
+                <ul>
+                    <li>ZRAM module (LZ4 / LZ4HC / ZSTD / DEFLATE) for compressed swap</li>
+                    <li>CMA (256 MB) for contiguous memory / GPU stability</li>
+                    <li>HSA_AMD_SVM for future ROCm compute</li>
+                    <li>Repo renamed oddnetkernel &rarr; oddzen</li>
+                </ul>
+            </div>
+
+            <div class="update-entry">
+                <div class="update-meta">2026-07-29 &middot; 7.1.5-zen1-2</div>
+                <h3>Published to apt repo</h3>
+                <ul>
+                    <li>Kernel + headers packaged as .deb and served from cpntodd.github.io</li>
+                    <li>One-line install via the oddzen apt repository</li>
+                </ul>
+            </div>
+
+            <div class="update-entry">
+                <div class="update-meta">2026-07-26 &middot; v1</div>
+                <h3>Initial release</h3>
+                <ul>
+                    <li>7.1.5-zen1-oddnetkernel-zen built with Clang 21 + LLD</li>
+                    <li>Zen patchset, EEVDF, PREEMPT_DYNAMIC, 1000 Hz</li>
+                </ul>
+            </div>
+        </div>
     </div>
 </section>
 

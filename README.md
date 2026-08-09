@@ -93,10 +93,14 @@ What I left OUT: WiFi drivers I don't use, Bluetooth, InfiniBand, most enterpris
 | Setting | Value |
 |---|---|
 | CPU Scheduler | EEVDF |
-| Preemption | `PREEMPT_DYNAMIC` (lazy) |
+| Preemption | `PREEMPT_DYNAMIC` (lazy; `preempt=full` switchable at boot) |
 | Timer Frequency | 1000 Hz |
-| I/O Scheduler | mq-deadline |
-| TCP Congestion | CUBIC |
+| I/O Scheduler | mq-deadline (default) -- Kyber + BFQ built in |
+| TCP Congestion | CUBIC (default) -- BBRv3 built in |
+| CPU Governor | schedutil (default) -- ondemand built in |
+| Compressed Swap | ZRAM (LZ4) + ZSWAP |
+| Contiguous Memory | CMA 256 MB |
+| ROCm | HSA_AMD + SVM |
 
 ---
 
@@ -105,6 +109,7 @@ What I left OUT: WiFi drivers I don't use, Bluetooth, InfiniBand, most enterpris
 | | |
 |---|---|
 | Version | `7.1.5-zen1-oddzen` |
+| Package | `7.1.5-zen1-4` (current) |
 | Base | Linux 7.1.5 |
 | Patches | Zen kernel v7.1.5-zen1 |
 | Compiler | Clang 21.1.8 (LLVM 21) |
