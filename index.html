@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>oddnetkernel — custom Zen kernel for AMD desktops on Debian</title>
-    <meta property="og:title" content="oddnetkernel — custom Zen kernel for AMD desktops">
+    <title>oddzen — custom Zen kernel for AMD desktops on Debian</title>
+    <meta property="og:title" content="oddzen — custom Zen kernel for AMD desktops">
     <meta property="og:description" content="Zen+ &amp; Polaris tuned kernel w/modules like CIFS. Built with Clang 21 + LLD for Debian 13.">
-    <meta property="og:image" content="https://cpntodd.github.io/oddnetkernel/assets/banner-og.png">
+    <meta property="og:image" content="https://cpntodd.github.io/oddzen/assets/banner-og.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="oddnetkernel — custom Zen kernel for AMD desktops">
+    <meta name="twitter:title" content="oddzen — custom Zen kernel for AMD desktops">
     <meta name="twitter:description" content="Zen+ &amp; Polaris tuned kernel w/modules like CIFS. Built with Clang 21 + LLD for Debian 13.">
-    <meta name="twitter:image" content="https://cpntodd.github.io/oddnetkernel/assets/banner-og.png">
+    <meta name="twitter:image" content="https://cpntodd.github.io/oddzen/assets/banner-og.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=VT323&display=swap" rel="stylesheet">
@@ -317,7 +317,7 @@
 <header>
     <div class="container">
         <span class="icon">⚡</span>
-        <h1>oddnet<span>kernel</span></h1>
+        <h1>odd<span>zen</span></h1>
         <p class="tagline">
             Custom Linux kernel for AMD Zen+/Polaris hardware on Debian.
             Built from mainline 7.1.5 with the Zen patchset, compiled with Clang 21 + LLD.
@@ -347,25 +347,25 @@
         <p>One command. Debian 13 (Trixie), amd64.</p>
 
         <div class="install-command">
-            <span class="dollar">$</span> curl -s '<span class="cmd">https://raw.githubusercontent.com/cpntodd/oddnetkernel/master/install-oddnetkernel.sh</span>' <span class="pipe">|</span> <span class="sudo">sudo</span> bash
+            <span class="dollar">$</span> curl -s '<span class="cmd">https://raw.githubusercontent.com/cpntodd/oddzen/master/install-oddzen.sh</span>' <span class="pipe">|</span> <span class="sudo">sudo</span> bash
         </div>
 
-        <p class="subtitle">Adds the oddnetkernel apt repo, installs the kernel + headers, and updates GRUB.</p>
+        <p class="subtitle">Adds the oddzen apt repo, installs the kernel + headers, and updates GRUB.</p>
 
         <h3 style="margin-top:36px; font-size:1rem; color:var(--text-heading);">Manual Install</h3>
 <pre>
 <span class="comment"># Add the GPG key</span>
 sudo mkdir -p /etc/apt/keyrings
-curl -fsSL https://cpntodd.github.io/oddnetkernel/oddnetkernel-archive-keyring.gpg | \
-    sudo gpg --dearmor -o /etc/apt/keyrings/oddnetkernel-archive-keyring.gpg
+curl -fsSL https://cpntodd.github.io/oddzen/oddzen-archive-keyring.gpg | \
+    sudo gpg --dearmor -o /etc/apt/keyrings/oddzen-archive-keyring.gpg
 
 <span class="comment"># Add the apt source</span>
-echo 'deb [arch=amd64 signed-by=/etc/apt/keyrings/oddnetkernel-archive-keyring.gpg] https://cpntodd.github.io/oddnetkernel/repo stable main' | \
-    sudo tee /etc/apt/sources.list.d/oddnetkernel.list
+echo 'deb [arch=amd64 signed-by=/etc/apt/keyrings/oddzen-archive-keyring.gpg] https://cpntodd.github.io/oddzen/repo stable main' | \
+    sudo tee /etc/apt/sources.list.d/oddzen.list
 
 <span class="comment"># Install</span>
 sudo apt update
-sudo apt install 'linux-image-*-oddnetkernel-zen' 'linux-headers-*-oddnetkernel-zen'
+sudo apt install 'linux-image-*-oddzen' 'linux-headers-*-oddzen'
 sudo reboot
 </pre>
     </div>
@@ -452,13 +452,13 @@ sudo reboot
         <h2>Current Build</h2>
         <table class="info-table">
             <tbody>
-                <tr><td>Version</td>       <td>7.1.5-zen1-oddnetkernel-zen</td></tr>
+                <tr><td>Version</td>       <td>7.1.5-zen1-oddzen</td></tr>
                 <tr><td>Base</td>          <td>Linux 7.1.5</td></tr>
                 <tr><td>Patches</td>       <td>Zen kernel v7.1.5-zen1</td></tr>
                 <tr><td>Compiler</td>      <td>Clang 21.1.8 (LLVM 21) + LLD 21.1.8</td></tr>
                 <tr><td>Hardware</td>      <td>AMD Ryzen 5 2600, Radeon RX 570/580, RTL8111, NVMe</td></tr>
                 <tr><td>OS target</td>     <td>Debian 13 (Trixie), amd64</td></tr>
-                <tr><td>Release</td>       <td><a href="https://github.com/cpntodd/oddnetkernel/releases/tag/v1">v1</a> — 2026-07-26</td></tr>
+                <tr><td>Release</td>       <td><a href="https://github.com/cpntodd/oddzen/releases/tag/v1">v1</a> — 2026-07-26</td></tr>
             </tbody>
         </table>
     </div>
@@ -473,7 +473,7 @@ sudo reboot
             <li><a href="#features">Features</a></li>
             <li><a href="#tuning">Performance Tuning</a></li>
             <li><a href="#build">Current Build</a></li>
-            <li><a href="https://github.com/cpntodd/oddnetkernel">GitHub</a></li>
+            <li><a href="https://github.com/cpntodd/oddzen">GitHub</a></li>
         </ul>
     </div>
 </section>
@@ -481,9 +481,9 @@ sudo reboot
 <footer>
     <div class="container">
         <p>
-            <strong>oddnetkernel</strong> by <strong>Oddsoul</strong> &nbsp;·&nbsp;
-            <a href="https://github.com/cpntodd/oddnetkernel">GitHub</a> &nbsp;·&nbsp;
-            <a href="https://github.com/cpntodd/oddnetkernel/releases">Releases</a>
+            <strong>oddzen</strong> by <strong>Oddsoul</strong> &nbsp;·&nbsp;
+            <a href="https://github.com/cpntodd/oddzen">GitHub</a> &nbsp;·&nbsp;
+            <a href="https://github.com/cpntodd/oddzen/releases">Releases</a>
         </p>
         <p style="margin-top:8px; font-size:0.8rem;">
             Built on Debian 13 · Linux® is a registered trademark of Linus Torvalds

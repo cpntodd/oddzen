@@ -1,15 +1,15 @@
 #!/bin/bash
-# oddnetkernel build script
+# oddzen build script
 # Builds Linux .deb packages with Zen patches using Clang 21
 set -e
 
 KERNEL_VERSION="7.1.5"
 ZEN_TAG="v${KERNEL_VERSION}-zen1"
-LOCALVERSION="-oddnetkernel-zen"
+LOCALVERSION="-oddzen"
 FULL_VERSION="${KERNEL_VERSION}-zen1${LOCALVERSION}"
 JOBS=$(nproc)
 
-echo "=== oddnetkernel build script ==="
+echo "=== oddzen build script ==="
 echo "Version: ${FULL_VERSION}"
 echo "Jobs: ${JOBS}"
 echo

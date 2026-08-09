@@ -1,9 +1,9 @@
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/banner.svg">
-  <img alt="oddnetkernel — Zen kernel for AMD desktops" src="assets/banner.svg" width="100%">
+  <img alt="oddzen — Zen kernel for AMD desktops" src="assets/banner.svg" width="100%">
 </picture>
 
-# oddnetkernel
+# oddzen
 
 Custom Linux kernel for my AMD desktop. Ryzen 5 2600 (Zen+), Radeon RX 570 (Polaris), Debian 13.
 
@@ -16,7 +16,7 @@ Built from mainline 7.1.5 with the Zen kernel patchset, compiled with Clang 21 +
 Debian 13 (Trixie), amd64 only:
 
 ```bash
-curl -s 'https://raw.githubusercontent.com/cpntodd/oddnetkernel/master/install-oddnetkernel.sh' | sudo bash
+curl -s 'https://raw.githubusercontent.com/cpntodd/oddzen/master/install-oddzen.sh' | sudo bash
 ```
 
 Or step by step:
@@ -24,12 +24,12 @@ Or step by step:
 ```bash
 # Add the apt repo
 sudo mkdir -p /etc/apt/keyrings
-curl -fsSL https://cpntodd.github.io/oddnetkernel/oddnetkernel-archive-keyring.gpg | \
-    sudo gpg --dearmor -o /etc/apt/keyrings/oddnetkernel-archive-keyring.gpg
-echo 'deb [arch=amd64 signed-by=/etc/apt/keyrings/oddnetkernel-archive-keyring.gpg] https://cpntodd.github.io/oddnetkernel/repo stable main' | \
-    sudo tee /etc/apt/sources.list.d/oddnetkernel.list
+curl -fsSL https://cpntodd.github.io/oddzen/oddzen-archive-keyring.gpg | \
+    sudo gpg --dearmor -o /etc/apt/keyrings/oddzen-archive-keyring.gpg
+echo 'deb [arch=amd64 signed-by=/etc/apt/keyrings/oddzen-archive-keyring.gpg] https://cpntodd.github.io/oddzen/repo stable main' | \
+    sudo tee /etc/apt/sources.list.d/oddzen.list
 sudo apt update
-sudo apt install 'linux-image-*-oddnetkernel-zen' 'linux-headers-*-oddnetkernel-zen'
+sudo apt install 'linux-image-*-oddzen' 'linux-headers-*-oddzen'
 sudo reboot
 ```
 
@@ -52,6 +52,25 @@ Specific tunables the Zen patchset exposes or changes:
 ### Clang toolchain
 
 I build with Clang 21 instead of GCC. No ideological reason — I wanted to see if the LLVM build worked on 7.x, and it does. The kernel builds and boots fine. `bindeb-pkg` with `LLVM=1` Just Works.
+
+### OOM resilience
+
+The kernel includes both the normal OOM killer and compressed-swap support:
+
+- `CONFIG_ZSWAP=y` provides a compressed cache for a real swap device.
+- `CONFIG_ZRAM=m` provides compressed RAM-backed swap, with LZ4 as the default compressor and writeback support.
+- PSI and memory cgroups remain enabled for userspace OOM managers such as `systemd-oomd`.
+
+ZRAM is a kernel capability, not an automatically activated swap device. To use it after installing the kernel:
+
+```bash
+sudo apt install zram-tools
+sudo systemctl enable --now zramswap.service
+swapon --show
+zramctl
+```
+
+Without a swap device, `CONFIG_ZSWAP` cannot provide additional OOM headroom. A userspace OOM manager such as `systemd-oomd` is separate from the kernel package and must also be installed and enabled if desired.
 
 ### Hardware config
 
@@ -85,14 +104,14 @@ What I left OUT: WiFi drivers I don't use, Bluetooth, InfiniBand, most enterpris
 
 | | |
 |---|---|
-| Version | `7.1.5-zen1-oddnetkernel-zen` |
+| Version | `7.1.5-zen1-oddzen` |
 | Base | Linux 7.1.5 |
 | Patches | Zen kernel v7.1.5-zen1 |
 | Compiler | Clang 21.1.8 (LLVM 21) |
 | Linker | LLD 21.1.8 |
 | Hardware target | Ryzen 5 2600, RX 570/580, RTL8111, NVMe |
 | OS target | Debian 13 (Trixie), amd64 |
-| Release | [v1](https://github.com/cpntodd/oddnetkernel/releases/tag/v1) — 2026-07-26 |
+| Release | [v1](https://github.com/cpntodd/oddzen/releases/tag/v1) — 2026-07-26 |
 
 ---
 
@@ -103,7 +122,7 @@ What I left OUT: WiFi drivers I don't use, Bluetooth, InfiniBand, most enterpris
 git clone --depth 1 --branch v7.1.5-zen1 https://github.com/zen-kernel/zen-kernel.git
 
 # Copy my config
-cp config-7.1.5-zen1-oddnetkernel-zen linux-7.1.5/.config
+cp config-7.1.5-zen1-oddzen linux-7.1.5/.config
 
 # Build deps (Debian)
 sudo apt install clang-21 lld-21 llvm-21 build-essential flex bison \
