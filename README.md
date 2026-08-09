@@ -138,6 +138,50 @@ make LLVM=1 bindeb-pkg -j$(nproc)
 
 ---
 
+## Runtime Tuning
+
+Beyond the kernel build itself, a few runtime settings (Liquorix-postinst style) are applied at boot. Files live in `tuning/`:
+
+| File | What it does |
+|---|---|
+| `tuning/oddzen-tune.sh` | Sets `vm.watermark_boost_factor=0` (no allocation stalls), tunes the ondemand governor (`up_threshold=55`, `sampling_down_factor=5`) for faster frequency ramping, and prefers the Kyber I/O scheduler on NVMe |
+| `tuning/oddzen-tune.service` | systemd unit that runs the script at boot |
+| `tuning/99-oddzen.conf` | sysctl file for the watermark setting |
+
+Install:
+
+```bash
+sudo install -m 0755 tuning/oddzen-tune.sh /usr/local/sbin/oddzen-tune.sh
+sudo install -m 0644 tuning/oddzen-tune.service /etc/systemd/system/
+sudo install -m 0644 tuning/99-oddzen.conf /etc/sysctl.d/
+sudo systemctl daemon-reload
+sudo systemctl enable --now oddzen-tune.service
+```
+
+### Optional: full kernel preemption
+
+The kernel is built with `PREEMPT_DYNAMIC` and defaults to lazy preemption (Zen's choice). Liquorix-style full preemption gives slightly lower latency at a small throughput cost, and it is a one-line, reversible GRUB change:
+
+```bash
+sudo sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="\(.*\)"/GRUB_CMDLINE_LINUX_DEFAULT="\1 preempt=full"/' /etc/default/grub
+sudo update-grub
+```
+
+Remove `preempt=full` from `/etc/default/grub` and re-run `update-grub` to revert.
+
+### Optional: BBRv3 TCP congestion control
+
+CUBIC remains the default. To switch to BBRv3 (built in since the `-4` packages):
+
+```bash
+sudo sysctl -w net.ipv4.tcp_congestion_control=bbr
+echo 'net.ipv4.tcp_congestion_control = bbr' | sudo tee /etc/sysctl.d/99-oddzen-bbr.conf
+```
+
+Revert by setting the value back to `cubic` and removing that file.
+
+---
+
 ## Previous Builds
 
 - `7.1.3-custom-zen` — GCC 14.2.0, same Zen patch lineage, no longer packaged

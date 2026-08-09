@@ -1,14 +1,14 @@
 Package: linux-headers-7.1.5-zen1-oddzen
 Source: linux-upstream
-Version: 7.1.5-zen1-3
+Version: 7.1.5-zen1-4
 Architecture: amd64
 Maintainer: oddsoul <oddsoul@beanbox>
-Installed-Size: 56571
-Filename: repo/pool/main/linux-headers-7.1.5-zen1-oddzen_7.1.5-zen1-3_amd64.deb
-Size: 9632800
-MD5sum: dd44421ed3965d4ffecb069b57894e2f
-SHA1: 21cd773a744784bae19084b25e8a2af4dc9c99cc
-SHA256: eea5e015db551dd73508757a40483619ee8e4e93469dd6cf89fb988621f48d0b
+Installed-Size: 56572
+Filename: repo/pool/main/linux-headers-7.1.5-zen1-oddzen_7.1.5-zen1-4_amd64.deb
+Size: 9633524
+MD5sum: a630ca1abc43aea84fc4e9b3de918e7b
+SHA1: 10ce914c08719eebfb0c7b9cd5e3b9d588f04a58
+SHA256: 21c349afbfc4fce1599bb5ac3713c522cc421c79a96ef1972111a86353a3fe42
 Section: kernel
 Priority: optional
 Homepage: https://www.kernel.org/
@@ -19,15 +19,15 @@ Description: Linux kernel headers for 7.1.5-zen1-oddzen on amd64
 
 Package: linux-image-7.1.5-zen1-oddzen
 Source: linux-upstream
-Version: 7.1.5-zen1-3
+Version: 7.1.5-zen1-4
 Architecture: amd64
 Maintainer: oddsoul <oddsoul@beanbox>
-Installed-Size: 34821
-Filename: repo/pool/main/linux-image-7.1.5-zen1-oddzen_7.1.5-zen1-3_amd64.deb
-Size: 26276248
-MD5sum: 29de059c0224a7af000adefe94b7cb1b
-SHA1: 42d1eb59a12b5618fc3b57aa96237972f1a15bb0
-SHA256: c1a76e35d1b4165b5204cf936bd6e507129c7dc81199b8d594b5ec5b323e6cee
+Installed-Size: 34904
+Filename: repo/pool/main/linux-image-7.1.5-zen1-oddzen_7.1.5-zen1-4_amd64.deb
+Size: 26336460
+MD5sum: ef2fd59da8d6432d7d8b278a59651fd3
+SHA1: 2c17c8a82cd94e4844f912bd2c6c0e5e41dfd165
+SHA256: 6ad3f3cf2e1b965d08d451fa91d4b583d4d92956e443ff0ca130b2bfc5bc3b4b
 Section: kernel
 Priority: optional
 Homepage: https://www.kernel.org/

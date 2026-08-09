@@ -1,0 +1,11 @@
+[Unit]
+Description=Apply oddzen runtime performance tuning (memory, cpufreq, I/O scheduler)
+After=multi-user.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/oddzen-tune.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
